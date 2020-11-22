@@ -12,16 +12,19 @@ class Battle {
 
     public function __construct() {
 
-        $this->carl = new Carl();
-        $this->beast = new Beast();
+        $this->carl = new Player();
+        $this->beast = new Player();
 
     }
+
+
     // functie pentru valori random de tip float rotunjite la 2 zecimale pentru a genera valorice variabilei $chance.
     public function float_rand($min, $max) {
         $randomfloat = $min + mt_rand() / mt_getrandmax() * ($max - $min);
         return round($randomfloat,2);
     }
    
+    
     
     // functie pe calcularea valorii atacului si a rezultatului atacului lui Carl asupra lui Beast.
 
