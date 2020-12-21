@@ -1,8 +1,8 @@
 <?php
 
 class Battle {
-    private $dragonForceChance = 10;
-    private $magicShieldChance = 20;
+    const DRAGON_FORCE_CHANCE = 10;
+  
     private $damage;
     private $carl;
     private $beast;
@@ -14,60 +14,6 @@ class Battle {
         $this->carl = new Player();
         $this->beast = new Player();
 
-    }
-
-
-
-    // functie pe calcularea valorii atacului si a rezultatului atacului lui Carl asupra lui Beast.
-
-    private function fightResult($damage, $attacker, $defender)
-    {
-        // reinitialzare la fiecare runda a valorilor pt $chance pentru a implementa posibilitatea de ratare a atacului
-        $this->carl->setChance(FloatRand::float_rand(0.10, 0.30));
-        $this->beast->setChance(FloatRand::float_rand(0.25, 0.40));
-
-        $damage =  $attacker->getPower() - $defender->getDefence();
-        if ($damage < 0) {
-            $damage = 0;
-        }
-        if ($damage > 100) {
-            $damage = 100;
-        }
-        if (FloatRand::float_rand(0, 1) > $this->carl->getChance()) { //attacatorul rateaza(nu produce damage la atacat pt valori mai mari ca si valoarea $chance generata)
-            $damage = 0;
-        }
-        $defender->setLife($defender->getLife() - $damage);
-
-        echo 'damage: ' . $damage . "<br>";
-    }
-     // functie pe calcularea valorii atacului si a rezultatului atacului lui Beast asupra lui Carl.
-     // Am optat pt functii separate pt a executa atacurile fiecaruia pt ca a aplica Scutul fermecat in cazul atacului lui Beast
-
-    private function fightResultMagicShield($damage,$attacker,$defender) {
-         // reinitialzare la fiecare runda a valorilor pt $chance pentru a implementa posibilitatea de ratare a atacului
-        $this->carl->setChance(FloatRand::float_rand(0.10,0.30));
-        $this->beast->setChance(FloatRand::float_rand(0.25,0.40));
-
-        $damage =  $attacker->getPower() - $defender->getDefence();
-        if($damage < 0) {
-            $damage = 0;
-        }
-        if($damage>100) {
-            $damage =100;
-        }
-        if(FloatRand::float_rand(0,1) > $this->beast->getChance() ) { //attacatorul rateaza(nu produce damage la atacat pt valori mai mari ca si valoarea $chance generata)
-            $damage = 0;
-
-        }
-        if(mt_rand(1,100)<=$this->magicShieldChance) {
-        
-             $damage = round($damage/2);
-          
-         }
-        $defender->setLife($defender->getLife()-$damage);
-
-        echo 'damage: '.$damage."<br>"; 
-       
     }
 
     // functie pentru stabilirea ordinii de start pentru atac
@@ -97,22 +43,28 @@ class Battle {
     }
 
     // functie pentru executarea atacului pe rand
+    const MIN_CARL_CHANCE =  0.10;
+    const MAX_CARL_CHANCE =  0.30;
+    const MIN_BEAST_CHANCE = 0.25;
+    const MAX_BEAST_CHANCE = 0.40;
 
         private function turnPlay() {
-           
+
+            $this->carl->setChance(FloatRand::float_rand(self::MIN_CARL_CHANCE, self::MAX_CARL_CHANCE));
+             $this->beast->setChance(FloatRand::float_rand(self::MIN_BEAST_CHANCE, self::MAX_BEAST_CHANCE));
 
         if($this->isCarlTurn) {
 
-            $this->fightResult($this->damage,$this->carl,$this->beast);
+           Fight::fightResult($this->damage,$this->carl,$this->beast);
 
             //apelare functie Forta Dragonului care dubleaza puterea lui Carl
-            if(mt_rand(1,100)<=$this->dragonForceChance) {
+            if(mt_rand(1,100)<= self::DRAGON_FORCE_CHANCE) {
             $this->carl->dragonForce();
             }  
 
         } else {
            
-            $this->fightResultMagicShield($this->damage,$this->beast,$this->carl);       
+            Fight::fightResultMagicShield($this->damage,$this->beast,$this->carl);       
           
         }
           $this->isCarlTurn = !$this->isCarlTurn;
