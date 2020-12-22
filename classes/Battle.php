@@ -7,7 +7,6 @@ class Battle
     private $damage;
     private $carl;
     private $beast;
-    private $isCarlTurn = true;
     public $carlStatus;
 
 
@@ -29,8 +28,8 @@ class Battle
         $this->carl->setDefence(mt_rand(Constants::MIN_P_ONE_DEFENCE, Constants::MAX_P_ONE_DEFENCE));
         $this->carl->setSpeed(mt_rand(Constants::MIN_P_ONE_SPEED, Constants::MAX_P_ONE_SPEED));
         $this->carl->setChance(FloatRand::float_rand(Constants::MIN_P_ONE_CHANCE, Constants::MAX_P_ONE_CHANCE));
-        // echo 'Here is Carl: '."<br>";
-        return $carlStatus = $this->carl->printStatus();
+       
+        return $this->carlStatus = $this->carl->printStatus();
     }
     public function playerTwoInitialization()
     {
@@ -40,8 +39,8 @@ class Battle
         $this->beast->setDefence(mt_rand(Constants::MIN_P_TWO_DEFENCE, Constants::MAX_P_TWO_DEFENCE));
         $this->beast->setSpeed(mt_rand(Constants::MIN_P_TWO_SPEED, Constants::MAX_P_TWO_SPEED));
         $this->beast->setChance(FloatRand::float_rand(Constants::MIN_P_TWO_CHANCE, Constants::MAX_P_TWO_CHANCE));
-        // echo 'Here is Beast: '."<br>";
-        return $beastStatus = $this->beast->printStatus();
+       
+        return $this->beastStatus = $this->beast->printStatus();
     }
 
     // executarea jocului si afisarea castigatorului

@@ -10,9 +10,6 @@ class Winner {
         }
         return $winner;
         
-        echo "The winner is : " .$winner."!<br>";
-
-
 
     }
 

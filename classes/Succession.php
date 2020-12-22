@@ -10,8 +10,6 @@ class Succession
     public static function initialTurnPlay($playerOne, $playerTwo)
     {
 
-        //  echo("New Game!"."<br>");
-
         if ($playerOne->getSpeed() > $playerTwo->getSpeed()) {
 
             $playerOneTurn = true;
