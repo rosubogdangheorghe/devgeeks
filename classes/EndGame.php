@@ -11,4 +11,3 @@ class EndGame {
 
 }
 
-//   return  ($this->carl->getLife() <1 || $this->beast->getLife()<1 );

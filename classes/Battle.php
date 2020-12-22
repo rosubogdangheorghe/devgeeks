@@ -1,83 +1,121 @@
 <?php
 
-class Battle {
-  
-  
+class Battle
+{
+
+
     private $damage;
     private $carl;
     private $beast;
     private $isCarlTurn = true;
-   
+    public $carlStatus;
 
 
-    public function __construct() {
+    public function __construct()
+    {
 
         $this->carl = new Player();
         $this->beast = new Player();
-
     }
 
-        // initializarea jucatorilor
 
-        private function playerInitialization() {
-            $this->carl->setName('Carl');
-            $this->carl->setLife(mt_rand(Constants::MIN_P_ONE_LIFE,Constants::MAX_P_ONE_LIFE));
-            $this->carl->setPower(mt_rand(Constants::MIN_P_ONE_POWER,Constants::MAX_P_ONE_POWER));
-            $this->carl->setDefence(mt_rand(Constants::MIN_P_ONE_DEFENCE,Constants::MAX_P_ONE_DEFENCE));
-            $this->carl->setSpeed(mt_rand(Constants::MIN_P_ONE_SPEED,Constants::MAX_P_ONE_SPEED));
-            $this->carl->setChance(FloatRand::float_rand(Constants::MIN_P_ONE_CHANCE,Constants::MAX_P_ONE_CHANCE));
-            echo 'Here is Carl: '."<br>";
-            echo "\t-".$this->carl->printStatus()."<br>";
+    // initializarea jucatorilor
 
-            $this->beast->setName('Beast');
-            $this->beast->setLife(mt_rand(Constants::MIN_P_TWO_LIFE,Constants::MAX_P_TWO_LIFE));
-            $this->beast->setPower(mt_rand(Constants::MIN_P_TWO_POWER,Constants::MAX_P_TWO_POWER));
-            $this->beast->setDefence(mt_rand(Constants::MIN_P_TWO_DEFENCE,Constants::MAX_P_TWO_DEFENCE));
-            $this->beast->setSpeed(mt_rand(Constants::MIN_P_TWO_SPEED,Constants::MAX_P_TWO_SPEED));
-            $this->beast->setChance(FloatRand::float_rand(Constants::MIN_P_TWO_CHANCE,Constants::MAX_P_TWO_CHANCE));    
-            echo 'Here is Beast: '."<br>";
-            echo "\t-".$this->beast->printStatus()."<br>";
+    public function playerOneInitialization()
+    {
+        $this->carl->setName('Carl');
+        $this->carl->setLife(mt_rand(Constants::MIN_P_ONE_LIFE, Constants::MAX_P_ONE_LIFE));
+        $this->carl->setPower(mt_rand(Constants::MIN_P_ONE_POWER, Constants::MAX_P_ONE_POWER));
+        $this->carl->setDefence(mt_rand(Constants::MIN_P_ONE_DEFENCE, Constants::MAX_P_ONE_DEFENCE));
+        $this->carl->setSpeed(mt_rand(Constants::MIN_P_ONE_SPEED, Constants::MAX_P_ONE_SPEED));
+        $this->carl->setChance(FloatRand::float_rand(Constants::MIN_P_ONE_CHANCE, Constants::MAX_P_ONE_CHANCE));
+        // echo 'Here is Carl: '."<br>";
+        return $carlStatus = $this->carl->printStatus();
+    }
+    public function playerTwoInitialization()
+    {
+        $this->beast->setName('Beast');
+        $this->beast->setLife(mt_rand(Constants::MIN_P_TWO_LIFE, Constants::MAX_P_TWO_LIFE));
+        $this->beast->setPower(mt_rand(Constants::MIN_P_TWO_POWER, Constants::MAX_P_TWO_POWER));
+        $this->beast->setDefence(mt_rand(Constants::MIN_P_TWO_DEFENCE, Constants::MAX_P_TWO_DEFENCE));
+        $this->beast->setSpeed(mt_rand(Constants::MIN_P_TWO_SPEED, Constants::MAX_P_TWO_SPEED));
+        $this->beast->setChance(FloatRand::float_rand(Constants::MIN_P_TWO_CHANCE, Constants::MAX_P_TWO_CHANCE));
+        // echo 'Here is Beast: '."<br>";
+        return $beastStatus = $this->beast->printStatus();
+    }
+
+    // executarea jocului si afisarea castigatorului
+    public function play()
+    {
+
+
+        $gameOver = new EndGame();
+
+
+        $i = 1;
+        $array = [];
+
+        while (!$gameOver->gameOver($this->carl->getLife(), $this->beast->getLife()) && $i <= 20) {
+
+            $this->newDamage = Succession::turnPlay($this->damage, $this->carl, $this->beast);
+
+            $result1 = $this->carl->printStatus();
+            $result2 = $this->beast->printStatus();
+            $array[] = [$this->newDamage, $result1, $result2];
+
+
+            $i++;
         }
 
-        // executarea jocului si afisarea castigatorului
-        public function play(){
-            $this->playerInitialization();
-
-            $gameOver = new EndGame();
-           
-
-            echo "3...2...1...Start"."<br>";
-            echo "<br>";
-           
-
-            $this->isCarlTurn=Succession::initialTurnPlay($this->carl,$this->beast);
+        return $array;
+    }
 
 
-            if($this->isCarlTurn) {
-                echo 'Carl atacks first'."<br>";
-            } else {
-                echo 'Beast Attacks first'."<br>";
-            }
+    /**
+     * Get the value of carl
+     */
+    public function getCarl()
+    {
+        return $this->carl;
+    }
 
-            $i = 1;
+    /**
+     * Set the value of carl
+     *
+     * @return  self
+     */
+    public function setCarl($carl)
+    {
+        $this->carl = $carl;
 
-            while(!$gameOver->gameOver($this->carl->getLife(),$this->beast->getLife()) && $i <= 20) {
-                echo 'Round: '. $i;
-                echo "<br>";
-                Succession::turnPlay($this->damage,$this->carl,$this->beast);
-              
-                echo "<br>";
-                $i++;
-            }
+        return $this;
+    }
 
-            echo "END GAME"."<br>";
+    /**
+     * Get the value of beast
+     */
+    public function getBeast()
+    {
+        return $this->beast;
+    }
 
-            if($this->carl->getLife()>$this->beast->getLife()) {
-                $winner = $this->carl->getName();
-            } else {
-                $winner = $this->beast->getName();
-            }
-            echo "The winner is : " .$winner."!<br>";
-        }
+    /**
+     * Set the value of beast
+     *
+     * @return  self
+     */
+    public function setBeast($beast)
+    {
+        $this->beast = $beast;
 
+        return $this;
+    }
+
+    /**
+     * Get the value of damage
+     */
+    public function getDamage()
+    {
+        return $this->damage;
+    }
 }

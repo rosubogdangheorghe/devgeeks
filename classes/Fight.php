@@ -1,14 +1,11 @@
 <?php
 
-class Fight {
-
-
-    const MAGIC_SHIELD_CHANCE = 20;
+class Fight
+{
 
 
     public static function fightResult($damage, $attacker, $defender)
     {
-
 
         $damage =  $attacker->getPower() - $defender->getDefence();
         if ($damage < 0) {
@@ -22,7 +19,7 @@ class Fight {
         }
         $defender->setLife($defender->getLife() - $damage);
 
-        echo 'damage: ' . $damage . "<br>";
+        return $damage;
     }
 
 
@@ -43,12 +40,12 @@ class Fight {
         if (FloatRand::float_rand(0, 1) > $attacker->getChance()) { //attacatorul rateaza(nu produce damage la atacat pt valori mai mari ca si valoarea $chance generata)
             $damage = 0;
         }
-        if (mt_rand(1, 100) <= self::MAGIC_SHIELD_CHANCE) {
+        if (mt_rand(1, 100) <= Constants::MAGIC_SHIELD_CHANCE) {
 
             $damage = round($damage / 2);
         }
         $defender->setLife($defender->getLife() - $damage);
 
-        echo 'damage: ' . $damage . "<br>";
+        return $damage;
     }
 }

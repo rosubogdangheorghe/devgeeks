@@ -1,11 +1,12 @@
 <?php
 
-class Constants {
+class Constants
+{
     //Chance
     const MIN_P_ONE_CHANCE =  0.10;
-    const MAX_P_ONE_CHANCE =  0.30;
+    const MAX_P_ONE_CHANCE =  0.70;
     const MIN_P_TWO_CHANCE = 0.25;
-    const MAX_P_TWO_CHANCE = 0.40;
+    const MAX_P_TWO_CHANCE = 0.70;
 
     //Life 
     const MIN_P_ONE_LIFE = 65;
@@ -33,11 +34,7 @@ class Constants {
     const MIN_P_TWO_SPEED = 50;
     const MAX_P_TWO_SPEED = 80;
 
-   
+
     const DRAGON_FORCE_CHANCE = 10;
-
-
-
-
-
+    const MAGIC_SHIELD_CHANCE = 20;
 }

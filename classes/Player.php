@@ -1,6 +1,7 @@
 <?php
 
-class Player {
+class Player
+{
 
 
     private $name;
@@ -10,27 +11,29 @@ class Player {
     private $speed;
     private $chance;
 
-   public function __construct() {
-
+    public function __construct()
+    {
     }
 
-    public function dragonForce() {
-        $this->power = 2*$this->power;
+    public function dragonForce()
+    {
+        $this->power = 2 * $this->power;
         return $this->power;
     }
-    public function printStatus() {
-      
-        return $this->name."( 
-            Life level: ". $this->life." ".
-            "Power level: ". $this->power." ".
-            "Defence level: ".$this->defence." ".
-            "Speed: ".$this->speed." ".
-            "Chance: ".$this->chance. ")";
+    public function printStatus()
+    {
+
+        return $this->name . "( 
+            Life level: " . $this->life . " " .
+            "Power level: " . $this->power . " " .
+            "Defence level: " . $this->defence . " " .
+            "Speed: " . $this->speed . " " .
+            "Chance: " . $this->chance . ")";
     }
-    
+
     /**
      * Get the value of life
-     */ 
+     */
     public function getLife()
     {
         return $this->life;
@@ -38,7 +41,7 @@ class Player {
 
     /**
      * Get the value of power
-     */ 
+     */
     public function getPower()
     {
         return $this->power;
@@ -46,7 +49,7 @@ class Player {
 
     /**
      * Get the value of defence
-     */ 
+     */
     public function getDefence()
     {
         return $this->defence;
@@ -54,7 +57,7 @@ class Player {
 
     /**
      * Get the value of speed
-     */ 
+     */
     public function getSpeed()
     {
         return $this->speed;
@@ -62,7 +65,7 @@ class Player {
 
     /**
      * Get the value of chance
-     */ 
+     */
     public function getChance()
     {
         return $this->chance;
@@ -72,7 +75,7 @@ class Player {
      * Set the value of life
      *
      * @return  self
-     */ 
+     */
     public function setLife($life)
     {
         $this->life = $life;
@@ -84,7 +87,7 @@ class Player {
      * Set the value of power
      *
      * @return  self
-     */ 
+     */
     public function setPower($power)
     {
         $this->power = $power;
@@ -96,7 +99,7 @@ class Player {
      * Set the value of defence
      *
      * @return  self
-     */ 
+     */
     public function setDefence($defence)
     {
         $this->defence = $defence;
@@ -108,7 +111,7 @@ class Player {
      * Set the value of speed
      *
      * @return  self
-     */ 
+     */
     public function setSpeed($speed)
     {
         $this->speed = $speed;
@@ -120,7 +123,7 @@ class Player {
      * Set the value of chance
      *
      * @return  self
-     */ 
+     */
     public function setChance($chance)
     {
         $this->chance = $chance;
@@ -130,7 +133,7 @@ class Player {
 
     /**
      * Get the value of name
-     */ 
+     */
     public function getName()
     {
         return $this->name;
@@ -140,7 +143,7 @@ class Player {
      * Set the value of name
      *
      * @return  self
-     */ 
+     */
     public function setName($name)
     {
         $this->name = $name;
